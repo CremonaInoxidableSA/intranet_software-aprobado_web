@@ -1,32 +1,64 @@
 "use client"
 
 import { ThemeSwitcher } from "@/components/theme/themeSwitcher"
-import UserIcon from "@/components/userIcon/userIcon"
+// import UserIcon from "@/components/userIcon/userIcon"
 
 import Link from "next/link"
 import { useState } from "react"
-import { siteConfig } from "@/lib/config"
+import { urlConfig } from "@/lib/config"
 import { LogoCreminox as Logo } from "@/components/Logos"
 
 import { Menu, X } from "lucide-react"
 
 export default function HeaderPrincipal() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const HeaderIzquierda = [
+    {
+      label: "Home",
+      href: urlConfig.homeUrl,
+      className: "text-base opacity-70 transition-opacity hover:opacity-100",
+      onClick: () => setDrawerOpen(false),
+    },
+    {
+      label: "Gestion",
+      href: urlConfig.gestionUrl,
+      className: "text-base opacity-70 transition-opacity hover:opacity-100",
+      onClick: () => setDrawerOpen(false),
+    },
+    {
+      label: "Filtros",
+      href: urlConfig.filtrosUrl,
+      className: "text-base opacity-70 transition-opacity hover:opacity-100",
+      onClick: () => setDrawerOpen(false),
+    }
+  ]
+
+  const HeaderDerecha = [
+    {
+      label: "Intranet",
+      href: urlConfig.intranetUrl,
+      className: "text-base opacity-70 transition-opacity hover:opacity-100",
+      onClick: () => setDrawerOpen(false),
+    },
+  ]
 
   return (
     <>
       <header className="-header flex items-center bg-headerbg p-5">
         {/* Desktop: iconos izquierda */}
         <div className="hidden h-full w-[30%] flex-row items-center justify-start gap-5 xl:flex">
-          <UserIcon />
+          <X />
           <ThemeSwitcher />
-          <Link
-            href={siteConfig.homeUrl}
-            className="text-base opacity-70 transition-opacity hover:opacity-100"
-            onClick={() => setDrawerOpen(false)}
-          >
-            Home
-          </Link>
+          {HeaderIzquierda.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className={item.className}
+              onClick={item.onClick}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
 
         {/* Mobile: hamburger izquierda */}
@@ -46,9 +78,19 @@ export default function HeaderPrincipal() {
         </p>
 
         {/* Desktop: links + logo */}
-        <div className="hidden w-[30%] justify-end xl:flex">
+        <div className="hidden w-[30%] justify-end gap-5 xl:flex">
+          {HeaderDerecha.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="text-base opacity-70 transition-opacity hover:opacity-100"
+              onClick={() => setDrawerOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
           <Link
-            href={siteConfig.externalUrl}
+            href={urlConfig.externalUrl}
             rel="noopener noreferrer"
             target="_blank"
             className="h-full"
@@ -60,7 +102,7 @@ export default function HeaderPrincipal() {
         {/* Mobile: logo derecha */}
         <div className="flex items-center xl:hidden">
           <Link
-            href={siteConfig.externalUrl}
+            href={urlConfig.externalUrl}
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -86,9 +128,19 @@ export default function HeaderPrincipal() {
         {/* Fila superior: perfil + theme + cerrar */}
         <div className="flex items-center justify-between border-b border-current/20 px-4 py-4">
           <div className="flex items-center gap-4">
-            <UserIcon />
+            <X />
             <ThemeSwitcher />
           </div>
+          {HeaderDerecha.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="text-base opacity-70 transition-opacity hover:opacity-100"
+              onClick={() => setDrawerOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
           <button
             onClick={() => setDrawerOpen(false)}
             aria-label="Cerrar menú"
@@ -100,13 +152,16 @@ export default function HeaderPrincipal() {
 
         {/* Links de navegación */}
         <nav className="flex flex-col gap-5 px-4 py-5">
-          <Link
-            href={siteConfig.homeUrl}
-            className="text-base opacity-70 transition-opacity hover:opacity-100"
-            onClick={() => setDrawerOpen(false)}
-          >
-            Home
-          </Link>
+          {HeaderIzquierda.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="text-base opacity-70 transition-opacity hover:opacity-100"
+              onClick={() => setDrawerOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
       </div>
     </>

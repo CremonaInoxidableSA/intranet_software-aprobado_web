@@ -275,7 +275,7 @@ function AddFilterForm({
 
 function GuiaReferencia() {
   return (
-    <div className="flex flex-col gap-4 sm:flex-row xl:sticky xl:top-[72px] xl:shrink-0 xl:self-start">
+    <div className="flex flex-col gap-4 sm:flex-row xl:sticky xl:top-18 xl:shrink-0 xl:self-start">
       {/* Columna izquierda de guía */}
       <aside className="flex flex-1 flex-col gap-4 text-sm sm:w-72">
         {/* Tipos de filtro */}
